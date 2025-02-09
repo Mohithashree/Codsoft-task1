@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            color: #6c63ff;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #6c63ff;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 120px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px;
+        }
+
+        /* Bio Section */
+        .bio {
+            flex: 1;
+        }
+
+        .bio h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .bio h1 span {
+            display: inline-block;
+            animation: wave 1s infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(20deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .bio p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack .icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            font-size: 24px;
+        }
+
+        .tech-stack .icon:hover {
+            transform: translateY(-10px);
+        }
+
+        .tech-stack .icon:hover::after {
+            content: attr(data-text);
+            position: absolute;
+            top: -30px;
+            background: #6c63ff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .buttons a {
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .contact-btn {
+            background: #6c63ff;
+        }
+
+        .contact-btn:hover {
+            background: #5548c9;
+        }
+
+        .resume-btn {
+            background: #ff4081;
+        }
+
+        .resume-btn:hover {
+            background: #c61d5e;
+        }
+
+        /* Right Side Image */
+        .hero-img {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img img {
+            width: 90%;
+            max-width: 400px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Skills Container */
+        .skills-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 40px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .skills-container h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .skill {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .skill-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 12px;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 12px;
+            color: white;
+            font-size: 12px;
+            border-radius: 5px;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .html .progress { background: #f16529; width: 100%; }
+        .css .progress { background: #2965f1; width: 90%; }
+        .js .progress { background: #f7df1e; color: black; width: 60%; }
+        .java .progress { background: #007396; width: 45%; }
+
+        /* Projects Section */
+        .projects-container {
+            width: 100%;
+            background: white;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .projects-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .project {
+            background: #de9797;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            padding: 20px;
+        }
+
+        .project h3 {
+            margin-bottom: 10px;
+        }
+
+        .project .overlay {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(108, 99, 255, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: top 0.5s ease;
+        }
+
+        .project:hover .overlay {
+            top: 0;
+        }
+
+        .project .overlay a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .tech-stack {
+                justify-content: center;
+            }
+        }
+        /* Achievements Section */
+.section-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.achievement {
+    background: #d78c8c;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.achievement h3 {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Achievement Hover Effect */
+
+
+
+.achievement h3 {
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+.achievement:hover h3 {
+    color: black;
+}
+.contact-details p {
+        font-size: 18px;
+        margin: 10px 0;
+    }
+
+    .contact-details a {
+        color: #6c63ff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .contact-details a:hover {
+        text-decoration: underline;
+    }
+    .resume-box {
+            background: #ff4081;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .resume-box:hover {
+            background: #c61d5e;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="MOHITHA SHREES.png" alt="Logo">
+            <h1>My Portfolio</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#project">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="container">
+        <div class="bio">
+            <h1>Hi all, I'm Mohitha Shree S<span>👋</span></h1>
+            <p>A passionate Full Stack Developer 🚀 skilled in modern technologies and frameworks.</p>
+            
+            <div class="tech-stack">
+                <div class="icon" data-text="HTML"><i class="fa-brands fa-html5"></i></div>
+                <div class="icon" data-text="CSS"><i class="fa-brands fa-css3-alt"></i></div>
+                <div class="icon" data-text="JavaScript"><i class="fa-brands fa-js"></i></div>
+                <div class="icon" data-text="Java"><i class="fa-brands fa-java"></i></div>
+            </div>
+        </div>
+        <a href="RESUME.pdf" class="resume-box" download="MohithaShree_RESUME.pdf">Resume</a>
+
+        <div class="hero-img">
+            <img src="profile.jpg" alt="Developer Image">
+        </div>
+    </section>
+
+    <section class="skills-container" id="skills">
+        <h2>My Skills</h2>
+        <div class="skill html"><div class="skill-name">HTML</div><div class="progress-bar"><div class="progress">100%</div></div></div>
+        <div class="skill css"><div class="skill-name">CSS</div><div class="progress-bar"><div class="progress">90%</div></div></div>
+        <div class="skill js"><div class="skill-name">JavaScript</div><div class="progress-bar"><div class="progress">60%</div></div></div>
+        <div class="skill java"><div class="skill-name">Java</div><div class="progress-bar"><div class="progress">45%</div></div></div>
+    </section>
+    <section class="projects-container" id="project">
+        <h2>Projects</h2>
+
+        <div class="project">
+            <h3>HeartDiseaseDatasetPreprocessing</h3>
+            <div class="overlay">
+                <p>GitHub Repo:</p>
+                <a href="https://github.com/Mohithashree/HeartDiseaseDatasetPreprocessing">View Code</a>
+            </div>
+        </div>
+
+        <div class="project">
+            <h3>Bus Management System</h3>
+            <div class="overlay">
+                <p>GitHub Repo:</p>
+                <a href="https://github.com/Mohithashree/Java-Project">View Code</a>
+            </div>
+        </div>
+    </section>
+    <section class="section-container" id="achievements">
+        <h2>Achievements</h2>
+        <div class="achievement">
+            <h3>Winner of Hackathon - 3rd Prize</h3>
+        </div>
+        <div class="achievement">
+            <h3>Published Research Paper on AI</h3>
+        </div>
+    </section>
+    <!-- Contact Section -->
+<section class="section-container" id="contact">
+    <h2>Contact Me</h2>
+    <p>Feel free to reach out to me via email or phone, or connect with me on GitHub and LinkedIn.</p>
+    
+    <div class="contact-details">
+        <p><i class="fa-solid fa-envelope"></i> Email: <a href="mohithashrees.23it@kongu.edu">mohithashrees.23it@kongu.edu</a></p>
+        <p><i class="fa-solid fa-phone"></i> Phone: +91 9342642092</p>
+        <p><i class="fa-brands fa-github"></i> GitHub: <a href="https://github.com/Mohithashree" target="_blank">github.com/Mohithashree</a></p>
+        <p><i class="fa-brands fa-linkedin"></i> LinkedIn: <a href="https://www.linkedin.com/in/mohithashree-suresh-a1366b31b/" target="_blank">linkedin.com</a></p>
+    </div>
+</section>
+</body>
+</html>
